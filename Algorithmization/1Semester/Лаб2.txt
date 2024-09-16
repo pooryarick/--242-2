@@ -1,0 +1,75 @@
+Дана последовательность эл-тов в кол-ве n
+1) Опеделить кол-во эл-тов меньше 0
+2) опр второй макс. эл
+3) опр кол-во эл-тов явл локальными минимумами (значение < соседей)
+
+
+
+1)
+using System;
+class HelloWorld {
+	static void Main() {
+	    Console.WriteLine("Введите n");
+		int n = Convert.ToInt32(Console.ReadLine());
+		int cnt = 0;
+		for (int i=0; i<n; i++) {
+		    int a = Convert.ToInt32(Console.ReadLine());
+		    if (a < 0) {
+		        cnt++;
+		    }
+		}
+		Console.Write("Чисел меньше 0: ");
+		Console.WriteLine(cnt);
+	}
+}
+
+2)
+using System;
+class HelloWorld
+{
+    static void Main()
+    {
+        Console.WriteLine("Введите n");
+        int n = Convert.ToInt32(Console.ReadLine());
+        int m = Convert.ToInt32(Console.ReadLine());
+        int l = Convert.ToInt32(Console.ReadLine());
+
+        if (l > m) {
+            m = m + l;
+            l = m - l;
+            m = m - l;
+        }
+        for (int i = 2; i < n; i++) { 
+            int a = Convert.ToInt32(Console.ReadLine());
+            if (a > m) {
+                m = a;
+            } else if (a > l) {
+                l = a;
+            }
+        }
+        Console.Write("Результат: ");
+        Console.WriteLine(l);
+    }
+}
+
+3)
+using System;
+class HelloWorld {
+	static void Main() {
+	    Console.WriteLine("Введите n");
+		int n = Convert.ToInt32(Console.ReadLine());
+		int cnt = 0;
+		int pre = Convert.ToInt32(Console.ReadLine());
+		int mid = Convert.ToInt32(Console.ReadLine());
+		for (int i=2; i<n; i++) {
+            		int post = Convert.ToInt32(Console.ReadLine());
+	        	if ((mid<pre) && (mid<post)) {
+	        	    cnt++;
+	        	}
+	        	pre = mid;
+	        	mid = post;
+	    }
+	    Console.Write("Количество минимумов: ");
+	    Console.WriteLine(cnt);
+	}
+}
