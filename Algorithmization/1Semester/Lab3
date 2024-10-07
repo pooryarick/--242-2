@@ -1,0 +1,31 @@
+using System;
+class HelloWorld
+{
+    static void Main()
+    {
+        int num = Convert.ToInt32(Console.ReadLine());
+        while (num > 0)
+        {
+            int rev = 0;
+            while (num > 0)
+            {
+                if ((num % 10) % 2 != 0)
+                {
+                    rev += num % 10;
+                    rev *= 10;
+                }
+                num /= 10;
+            }
+            rev /= 10;
+            if (rev == 0)
+            {
+                Console.WriteLine("Нечетных цифр в элементе нет");
+            }
+            else
+            {
+                Console.WriteLine(rev);
+            }
+            num = Convert.ToInt32(Console.ReadLine());
+        }
+    }
+}
