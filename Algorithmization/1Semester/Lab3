@@ -1,3 +1,10 @@
+1) Подаются  целые положительные элементы. Окончание послед-ности - нулевой или отр. элемент. Для каждого элемента выполнить:
+	Перевернуть числовое значение наоборот, удалив все чет. цифры. Если в результате эл. = 0, выдать сообщение "Нечетных цифр в эл-те нет";
+123 => 31
+22 => "Нечетных цифр нет"
+
+
+###
 using System;
 class HelloWorld
 {
@@ -27,5 +34,51 @@ class HelloWorld
             }
             num = Convert.ToInt32(Console.ReadLine());
         }
+    }
+}
+
+
+
+
+2) Дана последовательность из n элементов. Нужно определить макс. сумму подпослед-ности из чет. элементов.
+2236 => 6
+
+###
+using System;
+class HelloWorld
+{
+    static void Main()
+    {
+        int n = Convert.ToInt32(Console.ReadLine());
+        int max_sum = 0;
+        int cur_sum = 0;
+        bool is_first_line = true;
+        bool is_first_el = true;
+        for (int i = 0; i < n; i++)
+        {
+            int a = Convert.ToInt32(Console.ReadLine());
+            if (a % 2 == 0)
+            { 
+                if (is_first_el)
+                {
+                    cur_sum = a;
+                }
+                else
+                {
+                    cur_sum += a;
+                }
+                is_first_el = false;
+            }
+            if (a % 2 != 0||i == n-1)
+            {
+                if (is_first_line || cur_sum > max_sum)
+                {
+                    max_sum = cur_sum;
+                }
+                is_first_line = false;
+                is_first_el = true;
+            }
+        }
+        Console.WriteLine(max_sum);
     }
 }
