@@ -1,0 +1,116 @@
+Даны три массива, размерностью n, m, p. В каждом массве опред сумму эл-тов кратных 3, прозведение нечет. эл-тов, кол-во нулевых элементов.
+Заполнение массивов выполнить с помощью функции. Нахождение суммы, произведения и кол-ва тоже с помощью функции.
+
+
+using System;
+class HelloWorld
+{
+    static void ArrayCompletion(int arrSize, ref int[] array)
+    {
+        for (int i = 0; i < arrSize; i++)
+        {
+            array[i] = Convert.ToInt32(Console.ReadLine());
+        }
+    }
+
+    static int Summa(int[] array)
+    {
+        int res = 0;
+        for (int i = 0; i < array.Length; i++)
+        {
+            if (array[i] % 3 == 0)
+            {
+                res += array[i];
+            }
+        }
+        return res;
+    }
+
+    static int Сomposition(int[] array)
+    {
+        int res = 1;
+        bool f = false;
+        for (int i = 0; i < array.Length; i++)
+        {
+            if (array[i] % 2 != 0)
+            {
+                res *= array[i];
+                f = true;
+            }
+        }
+        if (!f)
+        {
+            Console.WriteLine("Нет нечетных элементов");
+            return 0;
+        }
+        return res;
+    }
+
+    static int ZeroNum(int[] array)
+    {
+        int cnt = 0;
+        for (int i = 0; i < array.Length; i++)
+        {
+            if (array[i] == 0)
+            {
+                cnt++;
+            }
+        }
+        return cnt;
+    }
+    static void Main()
+    {
+        Console.WriteLine("Введите размерность первого массива:");
+        int n = Convert.ToInt32(Console.ReadLine());
+        int[] arr1 = new int[n];
+        Console.WriteLine("Введите элементы первого массива:");
+        ArrayCompletion(n, ref arr1);
+
+        Console.WriteLine("Введите размерность второго массива:");
+        int m = Convert.ToInt32(Console.ReadLine());
+        int[] arr2 = new int[m];
+        Console.WriteLine("Введите элементы второго массива:");
+        ArrayCompletion(m, ref arr2);
+
+        Console.WriteLine("Введите размерность третьего массива:");
+        int p = Convert.ToInt32(Console.ReadLine());
+        int[] arr3 = new int[p];
+        Console.WriteLine("Введите элементы третьего массива:");
+        ArrayCompletion(p, ref arr3);
+
+
+        // Задание 1
+        //---------------------------
+        //Console.Write("Сумма элементов, кратных 3 в первом массиве: ");
+        //Console.WriteLine(Summa(arr1));
+        //Console.Write("Сумма элементов, кратных 3 во втором массиве: ");
+        //Console.WriteLine(Summa(arr2));
+        //Console.Write("Сумма элементов, кратных 3 в третьем массиве: ");
+        //Console.WriteLine(Summa(arr3));
+        //---------------------------
+
+
+        //Задание 2
+        //---------------------------
+        //Console.Write("Произведение нечетных элементов в первом массиве: ");
+        //Console.WriteLine(Сomposition(arr1));
+        //Console.Write("Произведение нечетных элементов во втором массиве: ");
+        //Console.WriteLine(Сomposition(arr2));
+        //Console.Write("Произведение нечетных элементов в третьем массиве: ");
+        //Console.WriteLine(Сomposition(arr3));
+        //---------------------------
+
+
+
+
+        //Задание 3
+        //---------------------------
+        //Console.Write("Количество нулевых элементов в первом массиве: ");
+        //Console.WriteLine(ZeroNum(arr1));
+        //Console.Write("Количество нулевых элементов во втором массиве: ");
+        //Console.WriteLine(ZeroNum(arr2));
+        //Console.Write("Количество нулевых элементов в третьем массиве: ");
+        //Console.WriteLine(ZeroNum(arr3));
+        //---------------------------
+    }
+}
