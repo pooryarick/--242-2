@@ -1,0 +1,212 @@
+1) Дан двумерный массив. Поменять местами строки с макс. и мин.
+
+2) Необходимо опр. точки мин. и макс.
+
+3) Выдать пары номеров строк состоящих из одинаковых э-тов. Сортировать нельзя.
+
+1)
+using System;
+class HelloWorld
+{
+    static void Main()
+    {
+        Console.WriteLine("Введите число строк");
+        int strs = Convert.ToInt32(Console.ReadLine());
+        Console.WriteLine("Введите число столбцов");
+        int cols = Convert.ToInt32(Console.ReadLine());
+        int[,] main = new int[strs, cols];
+
+        for (int i = 0; i < strs; i++)
+        {
+            Console.WriteLine("Введите элементы " + (i+1) + "-й строки");
+            for (int j = 0; j < cols; j++)
+            {
+                main[i, j] = Convert.ToInt32(Console.ReadLine());
+            }
+        }
+        int[] max = { main[0, 0], 0 };
+        int[] min = { main[0, 0], 0 };
+        for (int i = 0; i < strs; i++)
+        {
+            for (int j = 0; j < cols; j++)
+            {
+                if (main[i, j] > max[0])
+                {
+                    max[0] = main[i, j];
+                    max[1] = i;
+                } else if (main[i, j] < min[0])
+                {
+                    min[0] = main[i, j];
+                    min[1] = i;
+                }
+            }
+        }
+        int[] a = new int[cols];
+        for (int i = 0; i < cols; i++)
+        {
+            a[i] = main[max[1], i];
+        }
+        for (int i = 0; i < cols; i++) {
+            main[max[1], i] = main[min[1], i];
+        }
+        for (int i = 0; i < cols; i++)
+        {
+            main[min[1], i] = a[i];
+        }
+
+        for (int i = 0; i < strs; i++)
+        {
+            for (int j = 0; j < cols; j++)
+            { 
+                Console.Write(main[i, j] + "\t");
+            }
+            Console.WriteLine("\n");
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2)
+using System;
+class HelloWorld
+{
+    static void Main()
+    {
+        Console.WriteLine("Введите число строк");
+        int strs = Convert.ToInt32(Console.ReadLine());
+        Console.WriteLine("Введите число столбцов");
+        int cols = Convert.ToInt32(Console.ReadLine());
+        int[,] main = new int[strs, cols];
+
+        for (int i = 0; i < strs; i++)
+        {
+            Console.WriteLine("Введите элементы " + (i+1) + "-й строки");
+            for (int j = 0; j < cols; j++)
+            {
+                main[i, j] = Convert.ToInt32(Console.ReadLine());
+            }
+        }
+
+        for (int str = 0; str < strs; str++)
+        {
+            int[] minOfStr = { main[str, 0], str, 0 };
+            int[] maxOfStr = { main[str, 0], str, 0 };
+            for (int col = 0; col < cols; col++)
+            {
+                if (main[str, col] < minOfStr[0])
+                {
+                    minOfStr[0] = main[str, col];
+                    minOfStr[2] = col;
+                }
+                else if (main[str, col] > maxOfStr[0])
+                {
+                    maxOfStr[0] = main[str, col];
+                    maxOfStr[2] = col;
+                }
+            }
+            int[] minOfCol = { minOfStr[0], minOfStr[1], minOfStr[2] };
+            int[] maxOfCol = { maxOfStr[0], maxOfStr[1], maxOfStr[2] };
+            bool f1 = true;
+            bool f2 = true;
+            for (int k = 0; k < strs; k++)
+            {
+                if (main[k, minOfCol[2]] < minOfCol[0])
+                {
+                    f1 = false;
+                    break;
+                }
+                if (main[k, maxOfCol[2]] > maxOfCol[0])
+                {
+                    f2 = false;
+                    break;
+                }
+            }
+            if (f1) Console.WriteLine($"Мин: {minOfCol[0]}; {minOfCol[1] + 1}-ая строка, {minOfCol[2] + 1}-й столбец");
+            if (f2) Console.WriteLine($"Макс: {maxOfCol[0]}; {maxOfCol[1] + 1}-ая строка, {maxOfCol[2] + 1}-й столбец");
+        }
+    }
+}
+
+
+
+
+
+
+3)
+using System;
+class HelloWorld
+{
+
+    static int count(int[] arr, int el)
+    {
+        int cnt = 0;
+        for (int i = 0; i < arr.Length; i++)
+        {
+            if (arr[i] == el)
+            {
+                cnt += 1;
+            }
+        }
+        return cnt;
+    }
+    static void Main()
+    {
+        Console.WriteLine("Введите число строк");
+        int strs = Convert.ToInt32(Console.ReadLine());
+        Console.WriteLine("Введите число столбцов");
+        int cols = Convert.ToInt32(Console.ReadLine());
+        int[,] main = new int[strs, cols];
+
+        for (int i = 0; i < strs; i++)
+        {
+            Console.WriteLine("Введите элементы " + (i + 1) + "-й строки");
+            for (int j = 0; j < cols; j++)
+            {
+                main[i, j] = Convert.ToInt32(Console.ReadLine());
+            }
+        }
+
+        for (int str1 = 0; str1 < strs - 1; str1++)
+        {
+            int[] stroke1 = new int[cols];
+            for (int t = 0; t < cols; t++)
+            {
+                stroke1[t] = main[str1, t];
+            }
+            for (int str2 = str1 + 1; str2 < strs; str2++)
+            {
+                int[] stroke2 = new int[cols];
+                for (int t = 0; t < cols; t++)
+                {
+                    stroke2[t] = main[str2, t];
+                }
+                bool f = true;
+                for (int i = 0; i < cols; i++)
+                {
+                    if (count(stroke1, stroke1[i]) != count(stroke2, stroke1[i]))
+                    {
+                        f = false;
+                        break;
+                    }
+                }
+                if (f) {
+                    Console.WriteLine($"{str1 + 1} и {str2 + 1}");
+                }
+            }
+        }
+    }
+}
+
