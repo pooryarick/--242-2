@@ -1,0 +1,52 @@
+using System;
+using System.Linq;
+class HelloWorld
+    {
+    static void Main()
+    {
+        //1
+        string s = Console.ReadLine();
+        while (s.Contains("  ")) {
+            s = s.Replace("  ", " ");
+        }
+
+
+        //2
+        string[] str = s.Split(' ');
+
+        foreach(string a in str)
+        {
+            string t = "";
+            for (int i = a.Length - 1; i >= 0; i--)
+            {
+                t += a.ToLower()[i];
+            }
+            bool f = true;
+            for (int i = 0; i < a.Length; i++)
+            {
+                if (a.ToLower()[i] != t[i])
+                {
+                    f = false;
+                }
+            }
+            if (f)
+            {
+                Console.WriteLine(a);
+            }
+        }
+
+
+
+        //3
+        int cnt = 0;
+        for (int a = 0; a < str.Length; a++)
+        {
+            if (str[a].ToLower()[0] == str[a].ToLower()[str[a].Length - 1])
+            {
+                cnt += 1;
+            }
+        }
+        Console.WriteLine(cnt);
+    }
+}
+
