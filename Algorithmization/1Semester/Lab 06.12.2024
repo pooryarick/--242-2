@@ -1,0 +1,229 @@
+1) класс с двумя полями. Тип int. Три конструктора: 1. Инициализирует 0, 0, если параметров нет. 2. Один парам. первая инициализация - пришеддший параметр, второй - 0. 3. Инициализирует 2 парам.
+
+4 метода:
+	1. Сложение 2 переменых
+	2. Вычитание
+	3. Деление
+	4. Умножение
+
+Создание 3-х объектов с тремя разными конструкторами
+Для каждого использовать свои методы
+
+
+2) Класс, описывающий студента
+ФИО,
+год рождения, курс
+в main создается массив из заданного кол-ва объектов класса. Инициализировать значения полей каждого объекта, необходимо предусмотреть выборку: список всех с одинаковым годом, с одинаковым курсом
+
+1. Заполнение
+2. Модификация по ФИО (предусмотреть вариант, что данных нет)
+3. Запрос по году
+4. Запрос по курсу
+5. Выход
+
+
+
+
+
+1) using System;
+using System.Linq;
+
+class Calculator
+{
+    int a;
+    int b;
+    public Calculator() {
+        a = 0;
+        b = 0;
+    }
+    public Calculator(int a) { 
+        this.a = a;
+        b = 0;
+    }
+    public Calculator(int a, int b)
+    {
+        this.a = a;
+        this.b = b;
+    }
+    public void Sum()
+    {
+        Console.WriteLine(a + b);
+    }
+    public void Subtract(int a, int b)
+    {
+        Console.WriteLine(a - b);
+    }
+    public void Subtract()
+    {
+        Console.WriteLine(a - b);
+    }
+    public void Mult()
+    {
+        Console.WriteLine(a * b);
+    }
+    public void Divide()
+    { 
+        Console.WriteLine(b != 0 ? ((double)a / (double)b) : "Деление на ноль");
+    }
+}
+class HelloWorld
+{
+    static void Main()
+    {
+        Calculator calc1 = new Calculator(9, 6);
+        calc1.Sum();
+        calc1.Subtract();
+        calc1.Subtract(6, 9);
+        calc1.Mult();
+        calc1.Divide();
+
+        Console.WriteLine();
+
+        Calculator calc2 = new Calculator(9);
+        calc2.Sum();
+        calc2.Subtract();
+        calc2.Subtract(0, 9);
+        calc2.Mult();
+        calc2.Divide();
+
+        Console.WriteLine();
+
+        Calculator calc3 = new Calculator();
+        calc3.Sum();
+        calc3.Subtract();
+        //calc3.Subtract();
+        calc3.Mult();
+        calc3.Divide();
+    }
+}
+
+
+
+
+
+
+
+
+
+2)
+using System;
+using System.Linq;
+class Student
+{
+    string name;
+    int year;
+    int course;
+    public string Name { get { return name; } set { name = value; } }
+    public int Year { get { return year; } set { year = value; } }
+    public int Course { get { return course; } set { course = value; } }
+}
+class HelloWorld
+{
+    static void Main()
+    {
+        Console.WriteLine("Введите число студентов: ");
+        int n = Convert.ToInt32(Console.ReadLine());
+        Student[] studs = new Student[n];
+        for (int i = 0; i < n; i++)
+        {
+            studs[i] = new Student();
+            Console.WriteLine("Введите ФИО");
+            studs[i].Name = Console.ReadLine();
+
+            Console.WriteLine("Введите год рождения");
+            studs[i].Year = Convert.ToInt32(Console.ReadLine());
+
+            Console.WriteLine("Введите курс");
+            studs[i].Course = Convert.ToInt32(Console.ReadLine());
+        }
+        if (studs.Length == 0)
+        {
+            Console.WriteLine("Данные не получены!");
+        }
+        else {
+            Console.WriteLine("Данные получены!");
+        }
+        Console.WriteLine("Выберите дейcтвие:");
+        Console.WriteLine("1: Модификация\t2: Запрос по году рождения\t3: Запрос по курсу\t4:Выход");
+        Console.Write("Действие: ");
+        int action = Convert.ToInt32(Console.ReadLine());
+        while (action != 4) {
+            if (action == 1)
+            {
+                if (studs.Length != 0)
+                {
+                    Console.Write("Введите ФИО: ");
+                    string name = Console.ReadLine();
+                    for (int i = 0; i < studs.Length; i++)
+                    {
+                        if (studs[i].Name == name)
+                        {
+                            Console.WriteLine("Выберите параметр, который хотите изменить: ");
+                            Console.WriteLine("1: Год рождения\t2: Курс\t3: Год рождения и курс");
+                            string param = Console.ReadLine();
+                            Console.Write("Введите новое значение: ");
+                            string value = Console.ReadLine();
+                            if (param == "1")
+                            {
+                                studs[i].Year = Convert.ToInt32(value);
+                            }
+                            else if (param == "2")
+                            {
+                                studs[i].Course = Convert.ToInt32(value);
+                            }
+                            else if (param == "3")
+                            {
+                                studs[i].Year = Convert.ToInt32(value.Split(' ')[0]);
+                                studs[i].Course = Convert.ToInt32(value.Split(' ')[1]);
+                            }
+                            Console.WriteLine("Данные обновлены");
+                        }
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Данные не получены!");
+                }
+            }
+            else if (action == 2)
+            {
+                if (studs.Length != 0)
+                {
+                    Console.Write("Введите год рождения: ");
+                    int year = Convert.ToInt32(Console.ReadLine());
+                    for (int i = 0; i < studs.Length; i++)
+                    {
+                        if (studs[i].Year == year) 
+                        {
+                            Console.WriteLine($"{studs[i].Name} {studs[i].Year} {studs[i].Course}");
+                        }
+                    }
+                } else
+                {
+                    Console.WriteLine("Данные не получены!");
+                }
+            }
+            else if (action == 3)
+            {
+                if (studs.Length != 0)
+                {
+                    Console.Write("Введите курс: ");
+                    int course = Convert.ToInt32(Console.ReadLine());
+                    for (int i = 0; i < studs.Length; i++)
+                    {
+                        if (studs[i].Course == course)
+                        {
+                            Console.WriteLine($"{studs[i].Name} {studs[i].Year} {studs[i].Course}");
+                        }
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Данные не получены!");
+                }
+            }
+            Console.Write("Действие: ");
+            action = Convert.ToInt32(Console.ReadLine());
+        }
+    }
+}
