@@ -47,15 +47,16 @@ class HelloWorld
         string str = Console.ReadLine();
         int maxLen = 0;
         int cnt = 0;
-        for (int i = 0; i < str.Length-2; i++) 
+        for (int i = 0; i < str.Length - 2; i++)
         {
-            if (str[i] == 'a' && str[i+1] == 'b' && str[i+2] == 'c')
+            if (str[i] == 'a' && str[i + 1] == 'b' && str[i + 2] == 'c')
             {
-                cnt++;
+                cnt += 3;
                 i += 2;
-                maxLen = Math.Max(cnt * 3, maxLen);
-            } else
-            { 
+                maxLen = Math.Max(cnt, maxLen);
+            }
+            else
+            {
                 cnt = 0;
             }
         }
