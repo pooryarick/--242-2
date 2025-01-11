@@ -47,16 +47,42 @@ class HelloWorld
         string str = Console.ReadLine();
         int maxLen = 0;
         int cnt = 0;
-        for (int i = 0; i < str.Length - 2; i++)
+        bool s = false;
+        char nextSymb;
+        for (int i = 0; i < str.Length-1; i++)
         {
-            if (str[i] == 'a' && str[i + 1] == 'b' && str[i + 2] == 'c')
+            if (str[i] == 'a')
             {
-                cnt += 3;
-                i += 2;
-                maxLen = Math.Max(cnt, maxLen);
+                nextSymb = 'b';
+                s = true;
+            }
+            else if (str[i] == 'b' && s)
+            {
+                nextSymb = 'c';
+            }
+            else if (str[i] == 'c' && s)
+            {
+                nextSymb = 'a';
             }
             else
             {
+                continue;
+            }
+            if (i == str.Length - 2 && str[i + 1] == nextSymb)
+            {
+                cnt += 2;
+                maxLen = Math.Max(maxLen, cnt);
+            }
+            else if (str[i + 1] == nextSymb)
+            {
+                cnt += 1;
+                maxLen = Math.Max(maxLen, cnt);
+            }
+            else
+            {
+                cnt += 1;
+                maxLen = Math.Max(maxLen, cnt);
+                s = false;
                 cnt = 0;
             }
         }
