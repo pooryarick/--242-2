@@ -1,0 +1,141 @@
+using System;
+namespace Algorithmization
+{
+    class Program
+    {
+        class Number
+        {
+            public string Num;
+            public string Oper;
+            public string Year;
+            public Number(string num, string oper, string year)
+            {
+                Num = num;
+                Oper = oper;
+                Year = year;
+            }
+        }
+        class User
+        {
+            public string FIO;
+            public string City;
+            public static int N;
+            public Number[] Nums;
+            public User(string fio, string city, int n)
+            {
+                FIO = fio;
+                City = city;
+                N = n;
+                Nums = new Number[N];
+            }
+            public void Info()
+            {
+                Console.WriteLine($"ФИО: {this.FIO}\nГород: {this.City}\nНомера телефонов:");
+                for ( int j = 0; j < Nums.Length; j++ )
+                {
+                    Console.WriteLine($"\t{j + 1}-й номер:\n\t\tНомер: {this.Nums[j].Num}\n\t\tОператор: {this.Nums[j].Oper}\n\t\tГод подключения: {this.Nums[j].Year}\n");
+                }
+
+                
+            }
+        }
+        static void Main()
+        {
+            Console.Write("Введите количество пользователей: ");
+            int l = Convert.ToInt32(Console.ReadLine());
+            User[] users = new User[l];
+
+            Console.WriteLine("Выберите действие: 1 - заполнить базу данных\t2 - выборка по ФИО\t3 - выборка по номеру\t4 - выборка по оператору\t5 - выход");
+            int action = Convert.ToInt32(Console.ReadLine());
+            bool filled = false;
+            while (action != 5)
+            {
+                if (action == 1 && !filled)
+                {
+                    for (int i = 0; i < l; i++)
+                    {
+                        Console.WriteLine($"Введите данные о {i + 1}-м пользователе: ");
+                        Console.Write("Введите ФИО: ");
+                        string fio = Console.ReadLine();
+                        Console.Write("Введите город: ");
+                        string city = Console.ReadLine();
+                        Console.Write("Введите количество номеров: ");
+                        int n = Convert.ToInt32(Console.ReadLine());
+                        users[i] = new User(fio, city, n);
+
+                        for (int j = 0; j < n; j++)
+                        {
+                            Console.WriteLine($"Введите данные о {j + 1}-м номере телефона: ");
+                            Console.Write("Номер: ");
+                            string num = Console.ReadLine();
+                            Console.Write("Оператор: ");
+                            string oper = Console.ReadLine();
+                            Console.Write("Год подключения: ");
+                            string year = Console.ReadLine();
+                            users[i].Nums[j] = new Number(num, oper, year);
+                        }
+                    }
+                    Console.WriteLine("База данных заполнена\n");
+                    filled = true;
+                }
+                else if (action == 1 && filled)
+                {
+                    Console.WriteLine("База данных уже заполнена\n");
+                }
+                else if (!filled)
+                {
+                    Console.WriteLine("База данных не заполнена!");
+                }
+                else 
+                {
+                    if (action == 2)
+                    {
+                        Console.Write("Введите нужные ФИО: ");
+                        string fio = Console.ReadLine();
+                        for (int i = 0; i < l; i++)
+                        {
+                            if (users[i].FIO == fio)
+                            {
+                                users[i].Info();
+                            }
+                        }
+                    }
+                    else if (action == 3)
+                    {
+                        Console.Write("Введите нужный номер: ");
+                        string num = Console.ReadLine();
+                        for (int i = 0; i < l; i++)
+                        {
+                            for (int j = 0; j < users[i].Nums.Length; j++)
+                            {
+                                if (users[i].Nums[j].Num == num)
+                                {
+                                    users[i].Info();
+                                    break;
+                                } 
+                            }
+                        }
+                    }
+                    else if (action == 4)
+                    {
+                        Console.Write("Введите нужного оператора: ");
+                        string oper = Console.ReadLine();
+                        for (int i = 0; i < l; i++)
+                        {
+                            for (int j = 0; j < users[i].Nums.Length; j++)
+                            {
+                                if (users[i].Nums[j].Oper == oper)
+                                {
+                                    users[i].Info();
+                                }
+                                break;
+                            }
+                        }
+                    }
+                }
+                Console.WriteLine("Выберите действие: 1 - заполнить базу данных\t2 - выборка по ФИО\t3 - выборка по номеру\t4 - выборка по оператору\t5 - выход");
+                action = Convert.ToInt32(Console.ReadLine());
+            }
+        }
+    }
+}
